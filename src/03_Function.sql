@@ -83,7 +83,7 @@ select str_to_date('20211013','%Y%m%d') from dual;
 --%k		시간(0~23)								
 --%M	월(January~December)								
 --%p		AM or PM							
---%r		시간(12시)을 hh:mm:ss AM?PM형식으로							
+--%r		시간(12시)을 hh:mm:ss AM/PM형식으로							
 --%S	초(00~59)								
 --%T		시간(24시)을 hh:mm:ss 형식으로		
 

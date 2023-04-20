@@ -94,7 +94,7 @@ class SelectForm extends JFrame implements ActionListener {
 		container.add(jsp, BorderLayout.CENTER);
 		container.add(btn, BorderLayout.SOUTH);
 
-		setTitle("테이블 박스 실습");
+		setTitle("멤버리스트 조회");
 		setSize(800, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);

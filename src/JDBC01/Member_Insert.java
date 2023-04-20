@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -55,6 +56,8 @@ class InsertForm extends JFrame implements ActionListener{
 		jp2.add(name);jp2.add(phone);jp2.add(birthday);jp2.add(gender);
 		con.add(jp2,BorderLayout.CENTER);
 		
+		
+		
 		JButton jb = new JButton("추가");
 		jb.setFont(f);
 		con.add(jb,BorderLayout.SOUTH);
@@ -78,22 +81,33 @@ class InsertForm extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		MemberDto mdto = new MemberDto();
 		
+		
 		if(name.getText().equals("")) {
-			JOptionPane.showMessageDialog(null,"이름을 입력하세요"); // 팝업메세지박스
+			JOptionPane.showMessageDialog(null,"이름을 입력하세요");
 			return;
-		}
+		}else {mdto.setName(name.getText());}
 		if(phone.getText().equals("")) {
 			JOptionPane.showMessageDialog(null,"전화번호를 입력하세요");
 			return;
-		}
+		}else {mdto.setPhone(phone.getText());}
 		if(birthday.getText().equals("")) {
 			JOptionPane.showMessageDialog(null,"생년월일을 입력하세요");
 			return;
-		}
+		}else {mdto.setBirthday(birthday.getText());}
+		
+		//age계산
+	      Calendar today = Calendar.getInstance();
+	      int todayYear = today.get(Calendar.YEAR);
+	      int birthYear = Integer.parseInt(birthday.getText().substring(0,4));
+	      mdto.setAge(todayYear-birthYear);
+		
 		if(gender.getText().equals("")) {
 			JOptionPane.showMessageDialog(null,"성별을 입력하세요");
 			return;
-		}
+		}else {mdto.setGender(gender.getText());}
+		
+		
+		
 		
 		MemberDao mdao = MemberDao.getInstance();
 		int result = mdao.insertMember(mdto);
