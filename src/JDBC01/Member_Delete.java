@@ -44,7 +44,7 @@ class DeleteForm extends JFrame implements ActionListener {
 		JLabel lb6 = new JLabel("  포   인   트 : ");
 		JLabel lb7 = new JLabel("  가   입   일 : ");
 
-		JButton title = new JButton("★★★회 원 정 보 수 정★★★");
+		JButton title = new JButton("★★★회 원 정 보 삭 제★★★");
 
 		lb1.setFont(f);
 		lb2.setFont(f);
@@ -91,7 +91,7 @@ class DeleteForm extends JFrame implements ActionListener {
 		textpanel.add(joindate);
 		con.add(textpanel, BorderLayout.CENTER);
 
-		JButton jb = new JButton("수정");
+		JButton jb = new JButton("삭제");
 		jb.setFont(f);
 		con.add(jb, BorderLayout.SOUTH);
 
@@ -102,7 +102,7 @@ class DeleteForm extends JFrame implements ActionListener {
 		jb.addActionListener(this);
 		
 		
-		setTitle("멤버리스트 레코드 수정");
+		setTitle("멤버리스트 레코드 삭제");
 		setSize(500, 350);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -115,7 +115,7 @@ class DeleteForm extends JFrame implements ActionListener {
 		MemberDto mdto = new MemberDto();
 		String s = e.getActionCommand();
 		MemberDao mdao = MemberDao.getInstance();
-
+		
 		switch (s) {
 		case "조회":
 			int mnum = Integer.parseInt(membernum.getText());
@@ -133,37 +133,19 @@ class DeleteForm extends JFrame implements ActionListener {
 				joindate.setText(mdto.getJoindate());
 			}
 			break;
-		case "수정":
+		case "삭제":
+			mnum = Integer.parseInt(membernum.getText());
+			mdto = mdao.getMember(mnum);
+			
 			mdto.setMembernum(Integer.parseInt(membernum.getText()));
-			mdto.setName(name.getText());
-			mdto.setPhone(phone.getText());
-			mdto.setBirthday(birthday.getText());
-			mdto.setGender(gender.getText());
-			mdto.setBpoint(Integer.parseInt(bpoint.getText()));
-			mdto.setJoindate(joindate.getText());
+		
 
-			// age
-			Calendar today = Calendar.getInstance();
-			int todayYear = today.get(Calendar.YEAR);
-			int birthYear = Integer.parseInt(birthday.getText().substring(0, 4));
-			mdto.setAge(todayYear - birthYear);
-
-			int result = mdao.updateMember(mdto);
-			if (result == 1) {
-				JOptionPane.showMessageDialog(null, "레코드 수정 성공");
-				membernum.setText("");
-				name.setText("");
-				phone.setText("");
-				birthday.setText("");
-				gender.setText("");
-				bpoint.setText("");
-				joindate.setText("");
-			} else {
-				JOptionPane.showMessageDialog(null, "레코드 수정 실패");
+			int result = mdao.deleteMember(mnum);
+			
+			if(result==1)JOptionPane.showMessageDialog(null,"삭제 성공~");
+			else JOptionPane.showMessageDialog(null,"삭제 실패ㅠ");
 			}
-		}
-
-	}
+}
 }
 
 public class Member_Delete {

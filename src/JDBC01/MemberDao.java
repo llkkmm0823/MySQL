@@ -133,4 +133,18 @@ public class MemberDao {
 		}finally {DBManager.close(con, pstmt, rs);}
 		return result;
 	}
+
+
+	public int deleteMember(int mnum) {
+		int result =0;
+		con = DBManager.getConnection();
+		String sql ="delete from Memberlist where Membernum=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,mnum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {e.printStackTrace();
+		}
+		return result;
+	}
 }
